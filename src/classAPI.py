@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
+import requests
 from requests import get
+
+import json
 
 
 class AbstractAPI(ABC):
@@ -13,9 +16,14 @@ class AbstractAPI(ABC):
 class HeadHunterAPI(AbstractAPI):
 
     def __init__(self):
-        pass
+        self.response = get("https://api.hh.ru/vacancies")
+
+    def get_information(self):
+        print(self.response.content.decode())
 
 
 
-response = get("https://api.hh.ru/vacancies?employer_id=1740&host=hh.ru")
-print(response.__dict__)
+hh = HeadHunterAPI()
+hh.get_information()
+
+

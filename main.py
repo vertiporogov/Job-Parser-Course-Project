@@ -1,4 +1,4 @@
-
+from src.classAPI import HeadHunterAPI, SuperJobAPI
 
 if __name__ == '__main__':
 
