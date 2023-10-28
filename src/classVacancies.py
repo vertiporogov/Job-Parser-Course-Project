@@ -1,7 +1,7 @@
 class Vacancy:
 
-    def __init__(self, name_vacancy: str, url: str, salary, requirement: str):
-        self.name_vacancy = name_vacancy
-        self.url = url
-        self.salary = salary
-        self.requirement = requirement
+    def __init__(self, title_vacancy: str, url_vacancy: str, salary_vacancy, requirement_vacancy: str):
+        self.title_vacancy = title_vacancy
+        self.url_vacancy = url_vacancy
+        self.salary_vacancy = salary_vacancy
+        self.requirement_vacancy = requirement_vacancy

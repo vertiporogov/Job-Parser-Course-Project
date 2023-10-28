@@ -1,9 +1,18 @@
-from src.classAPI import HeadHunterAPI, SuperJobAPI
+from src.classAPI import HeadHunterAPI
 
-if __name__ == '__main__':
+hh_api = HeadHunterAPI()
+print(hh_api.get_vacancies()[0])
+# for i in hh_api.get_vacancies():
+#     if i['salary'] != None:
+#         print(i)
+# print(hh_api)
+# print(*[1, 2, 3])
 
-    hh_api = HeadHunterAPI()
-    superjob_api = SuperJobAPI()
 
-    hh_vacancies = hh_api.get_vacancies("Python")
-    superjob_vacancies = superjob_api.get_vacancies("Python")
+def job_parser():
+
+    user_title = input('Введите название профессии ')
+
+
+if __name__ == "__main__":
+    pass

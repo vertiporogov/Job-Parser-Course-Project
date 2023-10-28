@@ -18,15 +18,16 @@ class HeadHunterAPI(AbstractAPI):
 
     """Класс для получения вакансий с сайта hh.ru"""
 
-    def __init__(self):
+    def __init__(self, word='python'):
         self.hh_api = "https://api.hh.ru/vacancies"
+        self.word = word
 
-    def get_vacancies(self, word):
+    def get_vacancies(self):
 
-        """Метод для получения вакансий по слову в названии"""
+        """Метод для получения списка вакансий"""
 
         params = {
-            'text': f'NAME:{word}',
+            'text': f'NAME:{self.word}',
             'area': 2,  # Поиск в зоне
             'per_page': 100  # Кол-во вакансий на 1 странице
         }
@@ -44,8 +45,8 @@ class SuperJobAPI(AbstractAPI):
         pass
 
 
-hh = HeadHunterAPI()
-print(hh.get_vacancies(['python', 'java']))
+# hh = HeadHunterAPI()
+# print(hh.get_vacancies('python'))
 
 
 
