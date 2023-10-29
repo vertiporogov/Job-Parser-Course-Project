@@ -35,25 +35,28 @@ class HeadHunterAPI(AbstractAPI):
             'per_page': 100  # Кол-во вакансий на 1 странице
         }
         response = get(self.hh_api, params=params)
-        vacancies = json.loads(response.content.decode())
-        return vacancies['items']
+        vacancies = json.loads(response.content.decode())['items']
+        return vacancies
 
     def format(self, word):
 
         format_list = []
         data = self.get_vacancies(word)
         for i in data:
-            if i['salary'] != None:
-                if i['salary']['from'] == None:
-                    i['salary']['from'] = 0
+            if i['salary']:
+                salary_from = i['salary']['from'] if i['salary']['from'] else 0
+                salary_to = i['salary']['to'] if i['salary']['to'] else 0
+            else:
+                salary_from = 0
+                salary_to = 0
 
-                format_list.append({
-                    'name': i['name'],
-                    'url': i['alternate_url'],
-                    'salary_from': i['salary']['from'],
-                    'salary_to': i['salary']['to'],
-                    'requirement': i['snippet']['requirement']
-                })
+            format_list.append({
+                'name': i['name'],
+                'url': i['alternate_url'],
+                'salary_from': salary_from,
+                'salary_to': salary_to,
+                'requirement': i['snippet']['requirement']
+            })
 
         return format_list
 
