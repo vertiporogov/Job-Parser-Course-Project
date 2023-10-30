@@ -7,5 +7,8 @@ class Vacancy:
         self.salary_to = salary_to
         self.requirement_vacancy = requirement_vacancy
 
+    def __repr__(self):
+        return f'Vacancy: {self.title_vacancy}'
+
     def __str__(self):
-        return f'Название: {self.title_vacancy}'
+        return f'Название: {self.title_vacancy}\nТребования: {self.requirement_vacancy}\nЗарплата: от {self.salary_from} до {self.salary_to}'

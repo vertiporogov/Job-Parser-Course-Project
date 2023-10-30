@@ -9,7 +9,7 @@ class AbstractAPI(ABC):
     """Абстрактный класс для работы с API"""
 
     @abstractmethod
-    def get_vacancies(self, word):
+    def get_vacancies(self):
         pass
 
     @abstractmethod
@@ -20,16 +20,16 @@ class AbstractAPI(ABC):
 class HeadHunterAPI(AbstractAPI):
     """Класс для получения вакансий с сайта hh.ru"""
 
-    def __init__(self):
+    def __init__(self, word):
         self.hh_api = "https://api.hh.ru/vacancies"
-        # self.word = word
+        self.word = word
 
-    def get_vacancies(self, word):
+    def get_vacancies(self):
 
         """Метод для получения списка вакансий"""
 
         params = {
-            'text': f'NAME:{word}',
+            'text': f'NAME:{self.word}',
             'area': 2,  # Поиск в зоне
             'page': 0,
             'per_page': 100  # Кол-во вакансий на 1 странице
@@ -41,7 +41,7 @@ class HeadHunterAPI(AbstractAPI):
     def format(self, word):
 
         format_list = []
-        data = self.get_vacancies(word)
+        data = self.get_vacancies()
         for i in data:
             if i['salary']:
                 salary_from = i['salary']['from'] if i['salary']['from'] else 0

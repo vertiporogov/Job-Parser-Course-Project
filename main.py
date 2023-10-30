@@ -1,12 +1,17 @@
 from src.classAPI import HeadHunterAPI
 from src.classJSON import JSONSaver
 
-hh_api = HeadHunterAPI()
+hh_api = HeadHunterAPI('администратор')
 # print(hh_api.get_vacancies('python')[0])
-f = hh_api.format('python')
+f = hh_api.format(hh_api.get_vacancies())
 # print(f)
 a = JSONSaver()
-a.greating_json(f)
+a.creating_json(f)
+o = a.set_salary(30000, 60000)
+# print(o)
+for i in o:
+    print(i)
+    print('*' * 100)
 # print(a)
 # for i in hh_api.get_vacancies():
 #     if i['salary'] != None:
