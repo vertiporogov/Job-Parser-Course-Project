@@ -2,17 +2,20 @@ from src.classAPI import HeadHunterAPI, SuperJobAPI
 from src.classJSON import JSONSaver
 
 hh_api = HeadHunterAPI('администратор')
-f = hh_api.get_vacancies()
+f = hh_api.format(hh_api.get_vacancies())
 
 sj = SuperJobAPI('учитель')
 a = sj.get_vacancies()
 d = sj.format(a)
+
 # print(a)
 # print(hh_api.get_vacancies('python')[0])
 # f = hh_api.format(hh_api.get_vacancies())
 # print(f)
 s = JSONSaver()
+s.creating_json(d)
 g = s.get_vacancy()
+g = sorted(g)
 
 for i in g:
     print(i)

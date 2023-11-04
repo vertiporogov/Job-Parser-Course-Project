@@ -12,3 +12,11 @@ class Vacancy:
 
     def __str__(self):
         return f'Название: {self.title_vacancy}\nТребования: {self.requirement_vacancy}\nЗарплата: от {self.salary_from} до {self.salary_to}'
+
+    def __lt__(self, other):
+
+        return self.salary_from < other.salary_from
+
+    def __gt__(self, other):
+
+        return self.salary_from > other.salary_from
