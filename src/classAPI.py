@@ -4,30 +4,42 @@ from requests import get
 
 import json
 
+import os
+
 
 class AbstractAPI(ABC):
-    """Абстрактный класс для работы с API"""
+
+    """
+    Абстрактный класс для работы с API
+    """
 
     @abstractmethod
     def get_vacancies(self):
+
         pass
 
     @abstractmethod
-    def format(self, word):
+    def format(self, data):
+
         pass
 
 
 class HeadHunterAPI(AbstractAPI):
-    """Класс для получения вакансий с сайта hh.ru"""
+    """
+    Класс для получения вакансий с сайта hh.ru.
+    """
 
     def __init__(self, word):
 
         self.hh_api = "https://api.hh.ru/vacancies"
-        self.word = word
+        self.word = word  # Название профессии которую ищем
 
     def get_vacancies(self):
 
-        """Метод для получения списка вакансий"""
+        """
+        Метод для получения информации с HH.ru.
+        :return: Полный список вакансий в JSON - формате.
+        """
 
         params = {
             'text': f'NAME:{self.word}',
@@ -40,15 +52,24 @@ class HeadHunterAPI(AbstractAPI):
 
         return vacancies
 
-    def format(self, word):
+    def format(self, data):
+
+        """
+        :param data: Список словарей в JSON - формате (берём из get_vacancies).
+        :return: Cписок словарей в JSON - формате с нужными ключами.
+        """
 
         format_list = []
 
-        for i in word:
+        for i in data:
+
             if i['salary']:
+
                 salary_from = i['salary']['from'] if i['salary']['from'] else 0
                 salary_to = i['salary']['to'] if i['salary']['to'] else 0
+
             else:
+
                 salary_from = 0
                 salary_to = 0
 
@@ -65,15 +86,26 @@ class HeadHunterAPI(AbstractAPI):
 
 class SuperJobAPI(AbstractAPI):
 
+    """
+    Класс для получения вакансий с сайта SuperJob.ru.
+    """
+
+    api_key: str = os.getenv('API-KEY-SuperJob')  # Получаем токен записанный в переменные окружения
+
     def __init__(self, word):
 
-        self.word = word
+        self.word = word  # Название профессии которую ищем
         self.url = 'https://api.superjob.ru/2.0/vacancies/'
 
     def get_vacancies(self):
 
+        """
+        Метод для получения информации с SuperJob.ru.
+        :return: Полный список вакансий в JSON - формате.
+        """
+
         headers = {
-            "X-Api-App-Id": 'v3.r.137913505.b29fad69e628335941de5d1351820fd685a356f9.9c3b25bb0352e79c18c8b461d899e1e93e56a4fa',
+            "X-Api-App-Id": self.api_key,
         }
         params = {
             'keyword': {self.word},
@@ -86,11 +118,17 @@ class SuperJobAPI(AbstractAPI):
 
         return response
 
-    def format(self, word):
+    def format(self, data):
+
+        """
+        :param data: Список словарей в JSON - формате (берём из get_vacancies).
+        :return: Cписок словарей в JSON - формате с нужными ключами.
+        """
 
         format_list = []
 
-        for i in word:
+        for i in data:
+
             format_list.append({
                 'name': i['profession'],
                 'url': i['link'],
