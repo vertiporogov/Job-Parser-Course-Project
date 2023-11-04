@@ -30,6 +30,7 @@ def job_parser():
             for i in result:  # Выводим в удобном виде
                 print(i)
                 print('*' * 100)
+                print(' ')
             break
 
         elif source_selection == 2:
@@ -44,6 +45,7 @@ def job_parser():
             for i in result:  # Выводим в удобном виде
                 print(i)
                 print('*' * 100)
+                print(' ')
             break
 
         else:  # Если неправильно выбрали сайт с информацией
