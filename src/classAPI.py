@@ -73,7 +73,7 @@ class SuperJobAPI(AbstractAPI):
     def get_vacancies(self):
 
         headers = {
-            "X-Api-App-Id": 'v3.r..............',
+            "X-Api-App-Id": 'v3.r...............',
         }
         params = {
             'keyword': {self.word},
